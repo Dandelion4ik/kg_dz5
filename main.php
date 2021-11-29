@@ -6,11 +6,6 @@
 <script>
     let canvas = document.getElementById("dz5");
     let ctx = canvas.getContext("2d");
-    let x = [];
-    let y = [];
-    let str = [];
-    let flag = false;
-    let count = 0;
 
     function line(x0, y0, x1, y1, color) {
         ctx.fillStyle = color;
@@ -53,41 +48,46 @@
     function fill_area(x, y) {
         let arr = [];
         let point = [x, y];
+        let new_x;
+        let new_y;
+        let new_point;
         arr.push(point);
         while (arr.length !== 0) {
-            let newx;
-            let newy;
-            let newpoint;
             point = arr.pop();
             if (ctx.getImageData(point[0], point[1], 1, 1).data[3] !== 255)
                 ctx.fillRect(point[0], point[1], 1, 1);
             if (ctx.getImageData(point[0] + 1, point[1], 1, 1).data[3] !== 255) {
-                newx = point[0] + 1;
-                newy = point[1];
-                newpoint = [newx, newy];
-                arr.push(newpoint);
+                new_x = point[0] + 1;
+                new_y = point[1];
+                new_point = [new_x, new_y];
+                arr.push(new_point);
             }
             if (ctx.getImageData(point[0] - 1, point[1], 1, 1).data[3] !== 255) {
-                newx = point[0] - 1;
-                newy = point[1];
-                newpoint = [newx, newy]
-                arr.push(newpoint);
+                new_x = point[0] - 1;
+                new_y = point[1];
+                new_point = [new_x, new_y]
+                arr.push(new_point);
             }
             if (ctx.getImageData(point[0], point[1] + 1, 1, 1).data[3] !== 255) {
-                newx = point[0];
-                newy = point[1] + 1;
-                newpoint = [newx, newy];
-                arr.push(newpoint);
+                new_x = point[0];
+                new_y = point[1] + 1;
+                new_point = [new_x, new_y];
+                arr.push(new_point);
             }
             if (ctx.getImageData(point[0], point[1] - 1, 1, 1).data[3] !== 255) {
-                newx = point[0];
-                newy = point[1] - 1;
-                newpoint = [newx, newy];
-                arr.push(newpoint);
+                new_x = point[0];
+                new_y = point[1] - 1;
+                new_point = [new_x, new_y];
+                arr.push(new_point);
             }
-
         }
     }
+
+    let x = [];
+    let y = [];
+    let str = [];
+    let flag = false;
+    let count = 0;
 
     canvas.addEventListener("click", function (event) {
         if (!flag) {
